@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<meta name="referrer" content="no-referrer">
+<title>Mismeet invite</title>
+<style>
+  :root {
+    --bg: #f6f7f9;
+    --card: #ffffff;
+    --text: #16181d;
+    --muted: #5b6270;
+    --line: #dde1e7;
+    --accent: #1f6feb;
+    --accent-text: #ffffff;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0f1115;
+      --card: #191c22;
+      --text: #e8eaee;
+      --muted: #9aa2b1;
+      --line: #2b303a;
+      --accent: #4c8dff;
+      --accent-text: #0f1115;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font: 16px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+  main {
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 40px 16px;
+  }
+  h1 { font-size: 1.6rem; margin: 0 0 8px; }
+  p { margin: 0 0 16px; }
+  .muted { color: var(--muted); font-size: 0.9rem; }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 16px;
+    margin: 0 0 16px;
+  }
+  ol { margin: 0; padding-left: 20px; }
+  li + li { margin-top: 8px; }
+  .stores { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+  a.button, button {
+    display: inline-block;
+    border: 0;
+    border-radius: 8px;
+    padding: 10px 14px;
+    background: var(--accent);
+    color: var(--accent-text);
+    font: inherit;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  code {
+    display: block;
+    margin: 8px 0;
+    padding: 10px;
+    border-radius: 8px;
+    background: var(--bg);
+    font: 0.8rem/1.4 ui-monospace, Menlo, monospace;
+    word-break: break-all;
+  }
+  [hidden] { display: none; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Mismeet invite</h1>
+  <div id="invite" hidden>
+    <p>Someone sent you this link to add them as a contact in Mismeet, an app that shares
+      locations between phones over Nostr, end-to-end encrypted.</p>
+    <div class="card">
+      <ol>
+        <li>Install Mismeet.
+          <div class="stores">
+            <a class="button" href="https://apps.apple.com/app/id6823881355">App Store</a>
+            <a class="button" href="https://play.google.com/store/apps/details?id=app.mismeet.android">Google Play</a>
+          </div>
+        </li>
+        <li>Open the link you were sent again. With Mismeet installed, it opens the app on
+          Add contact with the invite filled in.</li>
+        <li>Or copy the invite and paste it in Mismeet under Contacts, then Add.
+          <code id="link"></code>
+          <button id="copy" type="button">Copy invite</button>
+        </li>
+      </ol>
+    </div>
+    <p class="muted">The invite sits after the # in the address, which browsers never send to a
+      server, so this site does not see it.</p>
+  </div>
+  <p id="none" hidden>This link carries no invite. Ask the person who sent it for a new one.</p>
+</main>
+<script>
+  const invite = location.hash.slice(1).replace(/^nostr(:|%3A)/i, "").trim();
+  const valid = /^(nprofile|npub)1[02-9ac-hj-np-z]+$/.test(invite);
+  document.getElementById(valid ? "invite" : "none").hidden = false;
+  if (valid) {
+    const link = "https://lambdakilo.github.io/mismeet/i#" + invite;
+    document.getElementById("link").textContent = link;
+    const copy = document.getElementById("copy");
+    copy.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(link);
+        copy.textContent = "Copied";
+      } catch {
+        copy.textContent = "Select the text above to copy it";
+      }
+    });
+  }
+</script>
+</body>
+</html>
