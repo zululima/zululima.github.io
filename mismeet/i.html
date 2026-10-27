@@ -108,12 +108,11 @@
   const valid = /^(nprofile|npub)1[02-9ac-hj-np-z]+$/.test(invite);
   document.getElementById(valid ? "invite" : "none").hidden = false;
   if (valid) {
-    const link = "https://lambdakilo.github.io/mismeet/i#" + invite;
-    document.getElementById("link").textContent = link;
+    document.getElementById("link").textContent = invite;
     const copy = document.getElementById("copy");
     copy.addEventListener("click", async () => {
       try {
-        await navigator.clipboard.writeText(link);
+        await navigator.clipboard.writeText(invite);
         copy.textContent = "Copied";
       } catch {
         copy.textContent = "Select the text above to copy it";
