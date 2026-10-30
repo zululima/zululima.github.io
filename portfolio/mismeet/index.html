@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Mismeet | Akira Taguchi</title>
-<meta name="description" content="A case study of one flow in Mismeet, a location-sharing app on Nostr.">
+<title>Mismeet: contacts on the map | Akira Taguchi</title>
+<meta name="description" content="How the contact list of Mismeet, my location-sharing app, moved onto the map in five days.">
 <link rel="stylesheet" href="/style.css">
 </head>
 <body>
@@ -13,37 +13,56 @@
   <nav><a href="/portfolio/">Portfolio</a> <a href="/about/">About</a></nav>
 </header>
 <main>
-  <h1>Mismeet</h1>
-  <p class="meta">In progress</p>
-  <p>A case study of one flow in Mismeet, a location-sharing app on Nostr for iOS and Android.</p>
+  <h1>Mismeet: contacts on the map</h1>
+  <p class="meta">October 2026, iOS and Android</p>
+  <p>Mismeet is my location-sharing app in the style of Apple's Find My, built on Nostr for iOS and Android: each phone sends its location to relays, encrypted for each friend it shares with, and there is no server of its own. This case study follows its contact list from 23 to 27 October 2026, when it moved from a tab of its own onto the map.</p>
 
-  <!--
-    Fill in each section as the work happens, then remove the In progress line above
-    and on /portfolio/. For every design choice, name the norm behind it.
+  <h2>The problem</h2>
+  <p>In the first version, the map and the people on it were two tabs apart. The Map tab showed where everyone was. The Contacts tab listed them with lines like "Seen 21 seconds ago, within 15 m" and the start of each one's npub, a Nostr key that means nothing to a friend. To find out where one person was, you read their name on one tab and looked for it on the other. The list said when and how precisely someone was last seen, but not where, and Add sat in the top corner of the screen.</p>
+  <div class="shots">
+    <figure><img src="map-12-oct.png" alt="The Map tab on 12 October: two blue person markers over Helsinki, an Everyone button and the tab bar with Map, Contacts and Me." width="276" height="600"><figcaption>Map tab, 12 October</figcaption></figure>
+    <figure><img src="contacts-12-oct.png" alt="The Contacts tab on 12 October: two rows reading Seen 21 seconds ago, within 15 m, each with an npub key, and a plus button in the top corner." width="276" height="600"><figcaption>Contacts tab, 12 October</figcaption></figure>
+  </div>
 
-    <h2>The problem</h2>
-    The flow, who struggles with it and how you know, or the hypothesis you tested.
+  <h2>My role</h2>
+  <p>I decide what Mismeet does and how it looks, and I try the builds on my own phones. Claude Code writes the code from my prompts. Every commit carries the prompts behind it, collected in <a href="https://github.com/zululima/mismeet/blob/main/PROMPTS.md">PROMPTS.md</a>, so each change below can be traced to my own words. Where Claude Code offered options, such as where district names come from, I picked one.</p>
 
-    <h2>My role</h2>
-    What you decided and did yourself, and what Claude Code built from your prompts.
+  <h2>How I got to the solution</h2>
+  <p>My reference was Find My. I took screenshots of it on my iPhone and changed one thing at a time. From 25 October, each change went out the same day as a test build on TestFlight and on Google Play's closed test.</p>
+  <ul>
+    <li>23 October: each person got a photo or an initial, and the list guessed how they travelled from their speed and the roads: "by car at 43 km/h".</li>
+    <li>25 October: the npub left the list, the app followed dark mode, and the map opened on the people in my own country, with an Everyone button for the rest.</li>
+    <li>26 October: Refresh and Add moved from the top of the screen to the bottom. In <a href="https://www.uxmatters.com/mt/archives/2013/02/how-do-users-really-hold-mobile-devices.php">Steven Hoober's observations</a> of 780 people touching their phones, 49% held the phone in one hand and tapped with the thumb.</li>
+    <li>26 October: each row started saying where: the district, such as Kumpula rather than Helsinki, and my distance to the person, as Find My does. A tap on a row opens the map on that person.</li>
+    <li>27 October: I heard that the text on the Android map was too small to read. The map tiles were drawn at their raw pixel size, and now they scale with the screen. The same day the list became a sheet over the map, as in Find My, and the Contacts tab went away. Refresh and Add moved into the sheet's header, at the bottom of the screen while the sheet is down.</li>
+  </ul>
+  <div class="shots">
+    <figure><img src="contacts-23-oct.png" alt="The Contacts tab on 23 October: initials in coloured circles, and rows reading within 15 m, by car at 43 km/h." width="276" height="600"><figcaption>23 October: travel guesses</figcaption></figure>
+    <figure><img src="contacts-26-oct-buttons.png" alt="The Contacts tab on 26 October: Refresh and Add buttons at the bottom of the screen, above the tab bar." width="276" height="600"><figcaption>26 October: buttons at the bottom</figcaption></figure>
+    <figure><img src="contacts-26-oct-distance.png" alt="The Contacts tab later on 26 October: rows reading Keskusta, seen 2 minutes ago, with 3,9 km at the right." width="276" height="600"><figcaption>26 October: place and distance</figcaption></figure>
+  </div>
 
-    <h2>How I got to the solution</h2>
-    The first round of tests, the problems and their severity, and the paper sketches.
+  <h2>How it solved the problem</h2>
+  <p>One screen now answers where everyone is: the map on top, the list under it, and for each person the place, the time and the distance. Three tabs became two, Map and Me. Looking back, the changes follow three of <a href="https://www.nngroup.com/articles/ten-usability-heuristics/">Nielsen's usability heuristics</a>: recognition rather than recall, since nobody carries a name from one tab to another; aesthetic and minimalist design, since the key, the speed and the accuracy left the list; and consistency and standards, since the layout follows Find My.</p>
+  <div class="shots">
+    <figure><img src="sheet-27-oct-ios.png" alt="The iOS app on 27 October: the map on top with both contacts, and a Contacts sheet below it with Refresh and Add in its header and rows showing place, time and distance." width="276" height="600"><figcaption>iOS, 27 October</figcaption></figure>
+    <figure><img src="sheet-27-oct-android.png" alt="The Android app on 27 October: the map on top and a Contacts sheet below it with Refresh and Add buttons and rows showing place, time and distance." width="270" height="600"><figcaption>Android, 27 October</figcaption></figure>
+  </div>
 
-    <h2>How it solved the problem</h2>
-    Screenshots of the flow before and after, each change with its norm.
+  <h2>What I dropped</h2>
+  <ul>
+    <li>The travel guesses. I added "by car at 43 km/h" on 23 October and took it off the list three days later, along with "within 15 m". The speed still moves a person's estimated position along the road on the map.</li>
+    <li>The phones' own geocoders for the district names. They would have sent each friend's exact position to Apple or Google, and GrapheneOS has none. The names come from OpenStreetMap instead, downloaded for whole squares of the map, so the server learns areas and not positions.</li>
+    <li>The Contacts tab.</li>
+  </ul>
 
-    <h2>What I dropped</h2>
-    The sketches and ideas you did not pursue, and why.
+  <h2>What changed for users</h2>
+  <p>I have not measured it yet. Mismeet is in a closed test on Google Play and on TestFlight, and the outside feedback I have, the small text on the Android map, led to the last change.</p>
 
-    <h2>What changed for users</h2>
-    The second round of tests beside the first: tasks completed, time, problems left.
+  <h2>What I learned</h2>
+  <p>Copying a pattern people already know, Find My, settled more questions than ideas of my own did.</p>
 
-    <h2>What I learned</h2>
-    What you would do differently next time.
-
-    Links: the app at https://github.com/zululima/mismeet
-  -->
+  <p class="links"><a href="https://github.com/zululima/mismeet">Mismeet on GitHub</a> <a href="https://github.com/zululima/mismeet/blob/main/PROMPTS.md">The prompts behind each commit</a></p>
 </main>
 <footer>
   <p class="links"><a href="https://github.com/zululima">GitHub</a> <a href="/feed.xml">Feed</a></p>

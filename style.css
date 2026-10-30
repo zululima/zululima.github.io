@@ -77,6 +77,15 @@ p, ul, ol, pre, blockquote, figure { margin: 0 0 16px; }
 
 img, iframe { max-width: 100%; height: auto; }
 
+.shots {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 16px;
+}
+.shots figure { margin: 0; }
+.shots img { display: block; width: 100%; border: 1px solid var(--line); border-radius: 8px; }
+figcaption { margin-top: 8px; color: var(--muted); font-size: 0.875rem; }
+
 blockquote {
   margin-left: 0;
   padding-left: 16px;
