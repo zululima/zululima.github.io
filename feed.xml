@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Blog of Akira Taguchi</title>
+  <subtitle>This is a hacker's blog. The author is Akira Taguchi. The posts are meant to act as troubleshooting help for anyone coming across this blog via keywords.</subtitle>
+  <link href="https://zululima.github.io/feed.xml" rel="self" type="application/atom+xml"/>
+  <link href="https://zululima.github.io/" rel="alternate" type="text/html"/>
+  <id>/feed.xml</id>
+  <updated>2024-01-14T00:00:00+00:00</updated>
+  <author><name>Akira Taguchi</name></author>
+  <entry>
+    <title>How to install Windows</title>
+    <link href="https://zululima.github.io/misc/2024/01/14/how-to-install-windows.html" rel="alternate" type="text/html"/>
+    <id>/misc/2024/01/14/how-to-install-windows</id>
+    <published>2024-01-14T00:00:00+00:00</published>
+    <updated>2024-01-14T00:00:00+00:00</updated>
+    <summary>Hello everyone. Today I will show you how to install Windows. Unironically.</summary>
+  </entry>
+  <entry>
+    <title>Hello, Blog!</title>
+    <link href="https://zululima.github.io/misc/2023/12/31/hello-blog.html" rel="alternate" type="text/html"/>
+    <id>/misc/2023/12/31/hello-blog</id>
+    <published>2023-12-31T00:00:00+00:00</published>
+    <updated>2023-12-31T00:00:00+00:00</updated>
+    <summary>Hello, Jekyll! This blog post is about the journey I went through just to get a simple blog up and running.</summary>
+  </entry>
+</feed>
